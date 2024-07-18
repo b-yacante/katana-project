@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bxtbkwp0klcto"]
+[gd_scene load_steps=13 format=3 uid="uid://bxtbkwp0klcto"]
 
 [ext_resource type="PackedScene" uid="uid://cdftv3h1v3vlx" path="res://Components/velocity_component.tscn" id="1_6b6xj"]
 [ext_resource type="Script" path="res://Scripts/character_manager.gd" id="1_nqtdr"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="2_deaie"]
+[ext_resource type="PackedScene" uid="uid://081weptw57xy" path="res://Scenes/Droppable Modifiers/speed_up_modifier.tscn" id="4_wufmc"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_cj46a"]
 _surfaces = [{
@@ -100,11 +101,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_2524l")
 
 [node name="VelocityComponent" parent="Player" instance=ExtResource("1_6b6xj")]
-speed = null
-speedup_modifier = null
-slowdown_modifier = null
-dash_speed = null
-fall_acceleration = null
+speedup_modifier = 100.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 6, 7)
@@ -119,5 +116,8 @@ sky_mode = 1
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0999794, -0.1, -0.65513)
 shape = SubResource("BoxShape3D_scfdh")
+
+[node name="Speed Up" parent="." instance=ExtResource("4_wufmc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.563203, -1.52867)
 
 [connection signal="velocity_modifier" from="Player/VelocityComponent" to="Player" method="_on_velocity_modifier"]
