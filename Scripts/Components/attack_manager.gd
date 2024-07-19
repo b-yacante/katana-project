@@ -14,14 +14,26 @@ extends Area3D
 ## Must be assigned as decimal, this represent seconds of the modifier
 ## @tutorial: 0.1 | 1 | 0.025
 @export var attack_speed_time_modifier:float
+## Must be assigned as decimal, this represent seconds of the modifier
+## @tutorial: 0.1 | 1 | 0.025
+@export var pre_casting_attack: float
 
+var is_attacking: bool
+var attacking_time: float
 var current_damage: int
 var current_attack_speed: float
 
 func _ready():
+	is_attacking = false
 	current_damage = damage
 	current_attack_speed = attack_speed
 	
+func attack():
+	await get_tree().create_timer(pre_casting_attack).timeout
+	is_attacking = true
+	await get_tree().create_timer(attacking_time).timeout
+	is_attacking = false
+
 func convert_percentage(value: float) -> float:
 	var decimal_percent = value * 0.01
 	return decimal_percent
