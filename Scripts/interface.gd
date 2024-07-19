@@ -8,7 +8,11 @@ extends Node
 ##
 ## Define your interfaces here
 class IHealth:
-	func take_damage():
+	func take_damage(damage: int):
+		pass
+	func shield_addition(points: int):
+		pass
+	func healing(points: int):
 		pass
 
 class IVelocity:
