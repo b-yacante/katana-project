@@ -7,8 +7,16 @@ extends Node
 ## Make this script an autoload script, with the recommended node name Interface
 ##
 ## Define your interfaces here
+class IHealth:
+	func take_damage():
+		pass
+
 class IVelocity:
 	func activate_speedup():
+		pass
+	func activate_slowdown():
+		pass
+	func activate_dash():
 		pass
 ## 		var example_property
 ##

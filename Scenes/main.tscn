@@ -78,14 +78,21 @@ size = Vector3(38, 0.664063, 38)
 
 [node name="Main" type="Node"]
 
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.767926, 0.640539, 0, -0.640539, 0.767926, 0, 1.77975, 1.3259)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 6, 7)
+sky_mode = 1
+
 [node name="Plane" type="MeshInstance3D" parent="."]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 mesh = SubResource("ArrayMesh_kb4yx")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_gmn5e")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.767926, 0.640539, 0, -0.640539, 0.767926, 0, 1.77975, 1.3259)
+[node name="Speed Up" parent="." instance=ExtResource("4_wufmc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.563203, -1.52867)
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -101,11 +108,13 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_2524l")
 
 [node name="VelocityComponent" parent="Player" instance=ExtResource("1_6b6xj")]
+speed = 2.0
 speedup_modifier = 100.0
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 6, 7)
-sky_mode = 1
+speedup_time_modifier = 1.0
+slowdown_modifier = 1.0
+slowdown_time_modifier = 1.0
+dash_speed = 3.0
+dash_time_modifier = 0.05
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -116,8 +125,5 @@ sky_mode = 1
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0999794, -0.1, -0.65513)
 shape = SubResource("BoxShape3D_scfdh")
-
-[node name="Speed Up" parent="." instance=ExtResource("4_wufmc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.563203, -1.52867)
 
 [connection signal="velocity_modifier" from="Player/VelocityComponent" to="Player" method="_on_velocity_modifier"]
