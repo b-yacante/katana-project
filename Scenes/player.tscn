@@ -6,17 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://c1ym5x0guqxo5" path="res://Components/health_component.tscn" id="3_wvur7"]
 [ext_resource type="PackedScene" uid="uid://y22pf7ltxeb3" path="res://Components/attack_component.tscn" id="4_cqaxk"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_uykvc"]
-properties/0/path = NodePath(".:player")
-properties/0/spawn = true
-properties/0/replication_mode = 0
-properties/1/path = NodePath(".:position")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_s7fxc"]
-properties/0/path = NodePath("Player Input:direction")
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_al77a"]
+properties/0/path = NodePath("InputPlayer:direction")
 properties/0/spawn = false
+properties/0/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6bkel"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5cfvm"]
@@ -64,13 +61,12 @@ height = 0.455525
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_2gtww")
 
-[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_uykvc")
-
-[node name="Player Input" type="MultiplayerSynchronizer" parent="."]
-unique_name_in_owner = true
-replication_config = SubResource("SceneReplicationConfig_s7fxc")
+[node name="InputPlayer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_al77a")
 script = ExtResource("2_2cff5")
+
+[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_6bkel")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_5cfvm")

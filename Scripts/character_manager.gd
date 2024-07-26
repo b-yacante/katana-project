@@ -1,26 +1,27 @@
 extends CharacterBody3D
 
+@onready var input_player = $InputPlayer
 var _speed: float = 0
-@export var player := 1 :
-	set(id):
-		player = id
-		# Give authority over the player input to the appropriate peer.
-		%"Player Input".set_multiplayer_authority(id)
 
-@onready var input = %"Player Input"
+#@export var player := 1 :
+	#set(id):
+		#player = id
 
+func _enter_tree():
+	set_multiplayer_authority(name.to_int())
+	
 func _ready():
-	# Set the camera as current if we are this player.
-	#if player == multiplayer.get_unique_id():
-		#$Camera3D.current = true
-	# Only process on server.
-	# EDIT: Let the client simulate player movement too to compesate network input latency.
-	# set_physics_process(multiplayer.is_server())
-	pass
+	var pos := Vector2.from_angle(randf() * 2 * PI)
+	position = Vector3(pos.x * 1 * randf(), 0, pos.y * 1 * randf())
+	#set_multiplayer_authority(name.to_int())
+	##input_player.set_multiplayer_authority(name.to_int())
+	## Set the camera as current if we are this player.
+	##if player == multiplayer.get_unique_id():
+		##$Camera3D.current = true
 
 func _physics_process(delta: float) -> void:
-	var direction = (transform.basis * Vector3(input.direction.x, 0, input.direction.y)).normalized()
-
+	if !is_multiplayer_authority(): return
+	var direction = (transform.basis * Vector3(input_player.direction.x, 0, input_player.direction.y)).normalized()
 	if direction:
 		velocity.x = direction.x * _speed
 		velocity.z = direction.z * _speed
@@ -33,4 +34,3 @@ func _physics_process(delta: float) -> void:
 
 func _on_velocity_modifier(speed: float) -> void:
 	_speed = speed
-	pass # Replace with function body.

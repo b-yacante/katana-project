@@ -1,11 +1,12 @@
 extends MultiplayerSynchronizer
 
 @export var direction := Vector2()
+
 #TODO crear la funcion attack y parry con RPC
 #@rpc("call_local")
 
 func _ready():
-	pass # Replace with function body.
+	set_process(get_multiplayer_authority() == multiplayer.get_unique_id())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
