@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bkkh7uiqdsudw"]
+[gd_scene load_steps=14 format=3 uid="uid://bkkh7uiqdsudw"]
 
 [ext_resource type="Script" path="res://Scripts/character_manager.gd" id="1_2gtww"]
 [ext_resource type="PackedScene" uid="uid://cdftv3h1v3vlx" path="res://Components/velocity_component.tscn" id="2_0oti7"]
 [ext_resource type="Script" path="res://Scripts/player_input.gd" id="2_2cff5"]
 [ext_resource type="PackedScene" uid="uid://c1ym5x0guqxo5" path="res://Components/health_component.tscn" id="3_wvur7"]
 [ext_resource type="PackedScene" uid="uid://y22pf7ltxeb3" path="res://Components/attack_component.tscn" id="4_cqaxk"]
+[ext_resource type="ArrayMesh" uid="uid://dhhrkxyyl8eo" path="res://Models/Katana.obj" id="6_r5c3d"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_al77a"]
 properties/0/path = NodePath("InputPlayer:direction")
@@ -94,5 +95,10 @@ dash_time_modifier = 0.05
 transform = Transform3D(0.507012, 0.861939, 0, -0.861939, 0.507012, 0, 0, 0, 1, 0.338529, 0.0963465, 0)
 shape = SubResource("CapsuleShape3D_nmd7n")
 disabled = true
+
+[node name="Katana" type="MeshInstance3D" parent="Attack Component"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = ExtResource("6_r5c3d")
+skeleton = NodePath("../..")
 
 [connection signal="velocity_modifier" from="VelocityComponent" to="." method="_on_velocity_modifier"]
