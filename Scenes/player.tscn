@@ -16,6 +16,9 @@ properties/0/replication_mode = 1
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath("Body:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5cfvm"]
 radius = 0.166203
@@ -56,11 +59,14 @@ albedo_color = Color(0.141828, 0.538962, 0.786542, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nmd7n"]
 radius = 0.0776604
-height = 0.455525
+height = 0.755061
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1_2gtww")
+
+[node name="PlayerCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, -5.48843e-16, 2.85709e-16, 2.85709e-16, 0.819152, 0.573576, -5.48843e-16, -0.573576, 0.819152, 2.08165e-12, 2, 2)
 
 [node name="InputPlayer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_al77a")
@@ -72,11 +78,25 @@ replication_config = SubResource("SceneReplicationConfig_6bkel")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_5cfvm")
 
-[node name="Cylinder" type="MeshInstance3D" parent="."]
+[node name="Body" type="Node3D" parent="."]
+
+[node name="Katana" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(-3.93403e-09, 0.045, 0.0779423, 2.71852e-17, 0.0779423, -0.045, -0.09, -1.96701e-09, -3.40697e-09, 0.0866948, 0, 0)
+mesh = ExtResource("6_r5c3d")
+skeleton = NodePath("../..")
+
+[node name="Cylinder" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(0.15, 0, 0, 0, 0.2, 0, 0, 0, 0.15, 0, 0, 0)
 mesh = SubResource("ArrayMesh_3vhhx")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_2524l")
+
+[node name="Attack Component" parent="Body" instance=ExtResource("4_cqaxk")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body/Attack Component"]
+transform = Transform3D(0.828774, 0.559583, 0, -0.559583, 0.828774, 0, 0, 0, 1, 0.338529, 0.265245, 0)
+shape = SubResource("CapsuleShape3D_nmd7n")
+disabled = true
 
 [node name="VelocityComponent" parent="." instance=ExtResource("2_0oti7")]
 speed = 2.0
@@ -88,17 +108,5 @@ dash_speed = 3.0
 dash_time_modifier = 0.05
 
 [node name="Health Component" parent="." instance=ExtResource("3_wvur7")]
-
-[node name="Attack Component" parent="." instance=ExtResource("4_cqaxk")]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Attack Component"]
-transform = Transform3D(0.507012, 0.861939, 0, -0.861939, 0.507012, 0, 0, 0, 1, 0.338529, 0.0963465, 0)
-shape = SubResource("CapsuleShape3D_nmd7n")
-disabled = true
-
-[node name="Katana" type="MeshInstance3D" parent="Attack Component"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-mesh = ExtResource("6_r5c3d")
-skeleton = NodePath("../..")
 
 [connection signal="velocity_modifier" from="VelocityComponent" to="." method="_on_velocity_modifier"]

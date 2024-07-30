@@ -3,10 +3,6 @@ extends CharacterBody3D
 @onready var input_player = $InputPlayer
 var _speed: float = 0
 
-#@export var player := 1 :
-	#set(id):
-		#player = id
-
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 	
@@ -16,13 +12,14 @@ func _ready():
 	#set_multiplayer_authority(name.to_int())
 	##input_player.set_multiplayer_authority(name.to_int())
 	## Set the camera as current if we are this player.
-	##if player == multiplayer.get_unique_id():
-		##$Camera3D.current = true
+	if name.to_int() == multiplayer.get_unique_id():
+		$PlayerCamera.current = true
 
 func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority(): return
 	var direction = (transform.basis * Vector3(input_player.direction.x, 0, input_player.direction.y)).normalized()
 	if direction:
+		$Body.basis = Basis.looking_at(direction)
 		velocity.x = direction.x * _speed
 		velocity.z = direction.z * _speed
 	else:

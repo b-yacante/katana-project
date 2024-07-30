@@ -41,9 +41,6 @@ size = Vector3(38, 0.664063, 38)
 [node name="Level" type="Node3D"]
 script = ExtResource("1_bugn3")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.767926, 0.640539, 0, -0.640539, 0.767926, 0, 1.77975, 1.3259)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 6, 7)
 sky_mode = 1
