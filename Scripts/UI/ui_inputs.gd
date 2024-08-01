@@ -14,5 +14,6 @@ func _on_button_pressed():
 	if ui_button == button_type.ATTACK:
 		Input.action_release('ui_attack')
 		Input.action_press("ui_attack", 1)
-	#if pressed and ui_button == button_type.PARRY:
-		#Input.action_press("ui_parry")
+	if ui_button == button_type.PARRY:
+		Input.action_release('ui_parry')
+		Input.action_press("ui_parry", 1)

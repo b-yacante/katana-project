@@ -12,6 +12,8 @@ class IAttack:
 		pass
 
 class IHealth:
+	func parry():
+		pass
 	func take_damage(damage: int):
 		pass
 	func shield_addition(points: int):

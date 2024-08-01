@@ -92,6 +92,11 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_2524l")
 
 [node name="Attack Component" parent="Body" instance=ExtResource("4_cqaxk")]
+damage = 1
+attack_speed = 1.0
+attack_speed_modifier = 100.0
+attack_speed_time_modifier = 0.5
+pre_casting_attack = 0.1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Body/Attack Component"]
 transform = Transform3D(0.828774, 0.559583, 0, -0.559583, 0.828774, 0, 0, 0, 1, 0.338529, 0.265245, 0)

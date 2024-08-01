@@ -2,6 +2,8 @@ extends CharacterBody3D
 
 @onready var input_player = $InputPlayer
 var _speed: float = 0
+var can_attack := true
+var can_parry := true
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
@@ -16,16 +18,30 @@ func _ready():
 		$PlayerCamera.current = true
 		
 
-func _input(event):
+func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority(): return
-	if Input.is_action_pressed("ui_attack"):
+	#Attack input button
+	if Input.is_action_just_pressed("ui_attack") and can_attack:
 		for child in $Body.get_children():
 			if "implements" in child:
 				if child.implements == Interface.IAttack:
+					can_attack = false
 					child.attack()
-
-func _physics_process(delta: float) -> void:
-	if !is_multiplayer_authority(): return
+	
+	if Input.is_action_just_released("ui_attack"):
+		can_attack = true
+	
+	#Parry input button
+	if Input.is_action_just_pressed("ui_parry") and can_parry:
+		for child in get_children():
+			if "implements" in child:
+				if child.implements == Interface.IHealth:
+					can_parry = false
+					child.parry()
+	
+	if Input.is_action_just_released("ui_parry"):
+		can_parry = true
+	
 	
 	var direction = (transform.basis * Vector3(input_player.direction.x, 0, input_player.direction.y)).normalized()
 	if direction:

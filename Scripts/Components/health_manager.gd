@@ -20,6 +20,7 @@ func _ready() -> void:
 	current_shield = max_shield
 
 func parry():
+	print('parry')
 	is_parring = true
 	await get_tree().create_timer(parry_time).timeout
 	is_parring = false

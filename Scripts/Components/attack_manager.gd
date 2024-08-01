@@ -22,6 +22,7 @@ var is_attacking: bool
 var attacking_time: float
 var current_damage: int
 var current_attack_speed: float
+var can_attack := true
 
 var implements = Interface.IAttack
 
@@ -31,11 +32,16 @@ func _ready():
 	current_attack_speed = attack_speed
 	
 func attack():
-	print('attack')
-	await get_tree().create_timer(pre_casting_attack).timeout
-	is_attacking = true
-	await get_tree().create_timer(attacking_time).timeout
-	is_attacking = false
+	if can_attack and not is_attacking:
+		can_attack = false
+		await get_tree().create_timer(pre_casting_attack).timeout
+		print('attack')
+		is_attacking = true
+		await get_tree().create_timer(attacking_time).timeout
+		is_attacking = false
+		await get_tree().create_timer(current_attack_speed).timeout
+		can_attack = true
+		print('can attack again')
 
 func convert_percentage(value: float) -> float:
 	var decimal_percent = value * 0.01
