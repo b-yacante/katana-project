@@ -7,6 +7,10 @@ extends Node
 ## Make this script an autoload script, with the recommended node name Interface
 ##
 ## Define your interfaces here
+class IAttack:
+	func attack():
+		pass
+
 class IHealth:
 	func take_damage(damage: int):
 		pass

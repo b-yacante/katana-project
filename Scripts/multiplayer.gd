@@ -5,10 +5,10 @@ const PORT = 4433
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Start paused.
-	get_tree().paused = true
+	#get_tree().paused = true
 	# You can save bandwidth by disabling server relay and peer notifications.
 	multiplayer.server_relay = false
-
+	$HUD.hide()
 	# Automatically start the server in headless mode.
 	if DisplayServer.get_name() == "headless":
 		print("Automatically starting dedicated server.")
@@ -52,7 +52,8 @@ func change_level(scene: PackedScene):
 func start_game():
 	# Hide the UI and unpause to start the game.
 	$"Main Menu".hide()
-	get_tree().paused = false
+	$HUD.show()
+	#get_tree().paused = false
 	
 	if multiplayer.is_server():
 		change_level.call_deferred(load("res://Scenes/level.tscn"))

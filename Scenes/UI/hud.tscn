@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://meny5s8ecc3y"]
+
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="1_oldga"]
+[ext_resource type="Texture2D" uid="uid://bpfyubarcm7bq" path="res://Sprites/UI_elements-ezgif.com-crop.png" id="2_q1dq5"]
+[ext_resource type="Script" path="res://Scripts/UI/ui_inputs.gd" id="3_tkl6o"]
+[ext_resource type="Texture2D" uid="uid://c8nju47wqtfva" path="res://Sprites/UI_elements-ezgif.com-crop (1).png" id="4_bgup2"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VirtualJoystickMovement" parent="." instance=ExtResource("1_oldga")]
+layout_mode = 1
+offset_top = -300.0
+offset_bottom = 0.0
+
+[node name="AttackButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -160.0
+offset_right = -220.0
+offset_bottom = -60.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("2_q1dq5")
+stretch_mode = 0
+script = ExtResource("3_tkl6o")
+ui_button = null
+
+[node name="ParryButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -160.0
+offset_right = -50.0
+offset_bottom = -60.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("4_bgup2")
+stretch_mode = 0
+script = ExtResource("3_tkl6o")
+ui_button = 1

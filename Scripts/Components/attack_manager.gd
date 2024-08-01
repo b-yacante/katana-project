@@ -23,12 +23,15 @@ var attacking_time: float
 var current_damage: int
 var current_attack_speed: float
 
+var implements = Interface.IAttack
+
 func _ready():
 	is_attacking = false
 	current_damage = damage
 	current_attack_speed = attack_speed
 	
 func attack():
+	print('attack')
 	await get_tree().create_timer(pre_casting_attack).timeout
 	is_attacking = true
 	await get_tree().create_timer(attacking_time).timeout
